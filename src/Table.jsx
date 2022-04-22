@@ -6,120 +6,13 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import { useState } from "react";
+import { SimpleDialog } from "./Popup";
+import { data } from "./Data"
+
 
 export default function BasicTable() {
-  const data = {
-    Kyivska: {
-      G: {
-        2017: {
-          XX: {
-            value: 150000,
-            dateRelease: "2017-12-31",
-          },
-          YY: {
-            value: 100000,
-            dateRelease: "2017-12-31",
-          },
-          ZZ: {
-            value: 77,
-            dateRelease: "2017-12-31",
-          },
-        },
-        2018: {
-          XX: {
-            value: 160000,
-            dateRelease: "2018-12-31",
-          },
-          YY: {
-            value: 110000,
-            dateRelease: "2018-12-31",
-          },
-          ZZ: {
-            value: 72,
-            dateRelease: "2018-12-31",
-          },
-        },
-        2019: {
-          XX: {
-            value: 130000,
-            dateRelease: "2019-12-31",
-          },
-          YY: {
-            value: 85000,
-            dateRelease: "2019-12-31",
-          },
-          ZZ: {
-            value: 72,
-            dateRelease: "2019-12-31",
-          },
-        },
-      },
-    },
-    Odeska: {
-      G: {
-        2017: {
-          XX: {
-            value: 10000,
-            dateRelease: "2017-12-31",
-          },
-          YY: {
-            value: 5000,
-            dateRelease: "2017-12-31",
-          },
-          ZZ: {
-            value: 45,
-            dateRelease: "2017-12-31",
-          },
-        },
-        2019: {
-          XX: {
-            value: 15000,
-            dateRelease: "2019-12-01",
-          },
-          YY: {
-            value: 0,
-            dateRelease: "2022-02-18",
-          },
-          ZZ: {
-            value: 0,
-            dateRelease: "2022-02-18",
-          },
-        },
-      },
-    },
-    Lvivska: {
-      G: {
-        2017: {
-          XX: {
-            value: 640000,
-            dateRelease: "2017-12-31",
-          },
-          YY: {
-            value: 510000,
-            dateRelease: "2017-08-01",
-          },
-          ZZ: {
-            value: 67,
-            dateRelease: "2017-08-01",
-          },
-        },
-        2018: {
-          XX: {
-            value: 740000,
-            dateRelease: "2018-12-31",
-          },
-          YY: {
-            value: 530000,
-            dateRelease: "2018-08-01",
-          },
-          ZZ: {
-            value: 61,
-            dateRelease: "2018-08-01",
-          },
-        },
-      },
-    },
-  };
+  const [open, setOpen] = useState(false);
 
   const kyiv = data.Kyivska.G;
   const odesa = data.Odeska.G;
@@ -137,6 +30,15 @@ export default function BasicTable() {
     y2019,
     z2019
   ) {
+    x2017 = JSON.stringify(x2017, null, 2).slice(1, -1);
+    y2017 = JSON.stringify(y2017, null, 2).slice(1, -1);
+    z2017 = JSON.stringify(z2017, null, 2).slice(1, -1);
+    x2018 = JSON.stringify(x2018, null, 2).slice(1, -1);
+    y2018 = JSON.stringify(y2018, null, 2).slice(1, -1);
+    z2018 = JSON.stringify(z2018, null, 2).slice(1, -1);
+    x2019 = JSON.stringify(x2019, null, 2).slice(1, -1);
+    y2019 = JSON.stringify(y2019, null, 2).slice(1, -1);
+    z2019 = JSON.stringify(z2019, null, 2).slice(1, -1);
     return {
       name,
       x2017,
@@ -192,10 +94,16 @@ export default function BasicTable() {
 
   const handleCellClick = (e) => {
     console.log(e.target.textContent);
+    setOpen(true);
   };
+  
+  const handleClose = () => {
+    setOpen(false);
+  }
 
   return (
     <TableContainer component={Paper}>
+      <SimpleDialog open={open} onClose={handleClose} />
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -232,31 +140,31 @@ export default function BasicTable() {
                 {row.name}
               </TableCell>
               <TableCell align="right" onClick={handleCellClick}>
-                {JSON.stringify(row.x2017, null, 2)}
+                {row.x2017}
               </TableCell>
               <TableCell align="right" onClick={handleCellClick}>
-                {JSON.stringify(row.y2017, null, 2)}
+                {row.y2017}
               </TableCell>
               <TableCell align="right" onClick={handleCellClick}>
-                {JSON.stringify(row.z2017, null, 2)}
+                {row.z2017}
               </TableCell>
               <TableCell align="right" onClick={handleCellClick}>
-                {JSON.stringify(row.x2018, null, 2)}
+                {row.x2018}
               </TableCell>
               <TableCell align="right" onClick={handleCellClick}>
-                {JSON.stringify(row.y2018, null, 2)}
+                {row.y2018}
               </TableCell>
               <TableCell align="right" onClick={handleCellClick}>
-                {JSON.stringify(row.z2018, null, 2)}
+                {row.z2018}
               </TableCell>
               <TableCell align="right" onClick={handleCellClick}>
-                {JSON.stringify(row.x2019, null, 2)}
+                {row.x2019}
               </TableCell>
               <TableCell align="right" onClick={handleCellClick}>
-                {JSON.stringify(row.y2019, null, 2)}
+                {row.y2019}
               </TableCell>
               <TableCell align="right" onClick={handleCellClick}>
-                {JSON.stringify(row.z2019, null, 2)}
+                {row.z2019}
               </TableCell>
             </TableRow>
           ))}
